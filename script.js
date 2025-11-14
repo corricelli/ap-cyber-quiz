@@ -20,7 +20,8 @@ function loadQuestions() {
       
       // Filter out any blank rows Papa Parse might pick up. 
       // We use 'Question Text' because we know it should be filled in.
-      const validQuestions = questions.filter(q => q["Question Text"]); 
+      //const validQuestions = questions.filter(q => q["Question Text"]); 
+      const validQuestions = questions;
       
       console.log('Successfully loaded and parsed questions:', validQuestions);
       
