@@ -7,7 +7,19 @@
 </head>
 <body>
     <h1>AP Question Bank by Unit</h1>
+    
     <div id="controls-container">
+        <label for="unit-filter">Filter by Unit:</label>
+        <select id="unit-filter">
+            <option value="all">All Units</option>
+        </select>
+
+        <label for="difficulty-filter" style="margin-left: 20px;">Filter by Difficulty:</label>
+        <select id="difficulty-filter">
+            <option value="all">All Difficulties</option>
+        </select>
+
+        <span id="question-count" style="margin-left: 20px; font-weight: bold;"></span>
         </div>
     
     <div id="questions-container">
