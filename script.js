@@ -29,6 +29,11 @@ function loadQuestions() {
             allQuestions = results.data.filter(q => q["Question Text"]); 
             
             console.log('Total questions loaded:', allQuestions.length);
+
+            // 🚨 ADD THIS LINE 🚨 
+            if (allQuestions.length > 0) {
+                console.log("ACTUAL KEYS IN FIRST QUESTION OBJECT:", Object.keys(allQuestions[0]));
+            }
             
             // 🆕 Populate the dropdowns with unique values
             populateFilters(allQuestions);
