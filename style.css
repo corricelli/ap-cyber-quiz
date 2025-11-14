@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7f6; /* Light gray background */
+    color: #333;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+h1 {
+    color: #005f99; /* Dark blue for main title */
+    border-bottom: 3px solid #005f99;
+    padding-bottom: 10px;
+}
+
+/* Style for the question cards */
+.ap-question-card {
+    background-color: #ffffff; /* White card background */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+}
+
+.ap-question-card h2 {
+    color: #333;
+    font-size: 1.2em;
+    margin-top: 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Style the answer choices */
+.answer-choices p {
+    margin: 5px 0;
+    padding-left: 10px;
+}
+
+/* Style the hidden answer section */
+.correct-answer {
+    margin-top: 15px;
+    padding: 10px;
+    border-top: 2px dashed #ccc;
+    color: #007000; /* Green for correct answer text */
+    font-size: 0.9em;
+}
+
+.correct-answer strong {
+    font-size: 1.1em;
+}
