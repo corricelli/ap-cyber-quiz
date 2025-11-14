@@ -4,37 +4,42 @@ const container = document.getElementById('questions-container');
 
 // --- 2. MAIN DATA FETCHING FUNCTION ---
 function loadQuestions() {
-  // Check if PapaParse is loaded before trying to use it
-  if (typeof Papa === 'undefined') {
-      console.error('PapaParse library not loaded. Check index.html <script> tag.');
-      container.innerHTML = 'Error: Parsing library not loaded.';
-      return;
-  }
-  
-  Papa.parse(CSV_URL, {
-    download: true,   // Tells Papa Parse to download the file from the URL
-    header: true,     // Converts the first row (headers) into object keys
-    complete: function(results) {
-      // The raw array of data objects
-      const questions = results.data;
-      
-      // Filter out any blank rows Papa Parse might pick up. 
-      // We use 'Question Text' because we know it should be filled in.
-      //const validQuestions = questions.filter(q => q["Question Text"]); 
-      const validQuestions = questions;
-      
-      console.log('Successfully loaded and parsed questions:', validQuestions);
-      
-      // Pass the cleaned data to the rendering function
-      renderQuestions(validQuestions); 
-    },
-    error: function(error) {
-      console.error('Error fetching or parsing data:', error);
-      container.innerHTML = 'Error loading questions. Check the Console for details.';
+    // Check if PapaParse is loaded before trying to use it
+    if (typeof Papa === 'undefined') {
+        console.error('PapaParse library not loaded. Check index.html <script> tag.');
+        container.innerHTML = 'Error: Parsing library not loaded.';
+        return;
     }
-  });
-}
 
+    Papa.parse(CSV_URL, {
+        download: true,   
+        header: true,     
+        // 🆕 Adding these two lines for robustness:
+        skipEmptyLines: true, // Tells Papa Parse to ignore any blank rows
+        delimiter: ",",       // Explicitly sets the file delimiter to a comma
+        
+        complete: function(results) {
+            const questions = results.data;
+            
+            // Re-enabling the filter now that the parse should be clean
+            const validQuestions = questions.filter(q => q["Question Text"]);
+            
+            console.log('Successfully loaded and parsed questions:', validQuestions);
+            
+            // If the array is empty, log the raw results to check headers
+            if (validQuestions.length === 0 && questions.length > 0) {
+                console.warn("Filter resulted in 0 questions. Check the exact spelling of your 'Question Text' header in the Google Sheet!");
+                console.log("Raw first object for inspection:", questions[0]);
+            }
+
+            renderQuestions(validQuestions); 
+        },
+        error: function(error) {
+            console.error('Error fetching or parsing data:', error);
+            container.innerHTML = 'Error loading questions. Check the Console for details.';
+        }
+    });
+}
 // --- 3. RENDERING FUNCTION ---
 function renderQuestions(questions) {
   // Clear the "Loading questions..." message
